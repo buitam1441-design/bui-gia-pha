@@ -235,7 +235,11 @@ export default function Home() {
             {activeTab === "tree" && (
               <button
                 onClick={() => {
-                  const resetTree = setCollapseByLevel(cloneTree(familyTree), 0, 1);
+                  const resetTree = setCollapseByLevel(
+                    cloneTree(familyTree),
+                    0,
+                    1
+                  );
                   setTreeData(resetTree);
                   setSelectedPerson(null);
                 }}
@@ -493,6 +497,29 @@ export default function Home() {
             >
               ✦ Gia phả chi tiết ✦
             </div>
+
+            {selectedPerson.photo && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "22px",
+                }}
+              >
+                <img
+                  src={selectedPerson.photo}
+                  alt={selectedPerson.name}
+                  style={{
+                    width: "180px",
+                    height: "220px",
+                    objectFit: "cover",
+                    borderRadius: "18px",
+                    border: "3px solid #c9a46a",
+                    boxShadow: "0 10px 24px rgba(90, 52, 27, 0.15)",
+                  }}
+                />
+              </div>
+            )}
 
             <h2
               style={{

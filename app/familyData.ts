@@ -6,6 +6,7 @@ export type PersonType = {
   location?: string;
   story?: string;
   color?: string;
+  photo?: string;
   children?: PersonType[];
 };
 
@@ -358,6 +359,7 @@ export const familyTree: PersonType = {
                   location: "Việt Nam / Australia",
                   story: "Đang xây dựng lại website gia phả cho dòng họ.",
                   color: "#fffaf5",
+                  photo: "/photos/bui-van-toan.jpg",
                 },
                 {
                   id: "bui-van-hieu",
