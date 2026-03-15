@@ -42,7 +42,6 @@ export default function RootLayout({
                 "0 18px 40px rgba(70, 40, 15, 0.18), inset 0 0 0 1px rgba(255,255,255,0.25)",
             }}
           >
-            {/* Góc trang trí */}
             <div
               style={{
                 position: "absolute",
@@ -110,115 +109,136 @@ export default function RootLayout({
                 boxShadow: "inset 0 0 0 3px rgba(124, 79, 41, 0.12)",
               }}
             >
-              {/* Header chung */}
               <header
                 style={{
                   textAlign: "center",
-                  padding: "34px 20px 22px",
+                  padding: "24px 20px 26px",
                   borderBottom: "1px solid #b78b5f",
                   background:
-                    "linear-gradient(180deg, rgba(255,250,240,0.22) 0%, rgba(210,175,118,0.08) 100%)",
+                    "linear-gradient(180deg, rgba(255,250,240,0.24) 0%, rgba(210,175,118,0.08) 100%)",
                 }}
               >
                 <div
                   style={{
-                    display: "inline-flex",
-                    alignItems: "center",
+                    display: "flex",
+                    alignItems: "flex-start",
                     justifyContent: "center",
-                    width: "82px",
-                    height: "82px",
-                    borderRadius: "999px",
-                    marginBottom: "8px",
-                    border: "2px solid #9d6c41",
-                    color: "#fff8ea",
-                    fontSize: "34px",
-                    fontWeight: 700,
-                    background:
-                      "radial-gradient(circle at 30% 30%, #9f6e43 0%, #7a4b2d 70%, #673a21 100%)",
-                    boxShadow:
-                      "0 8px 18px rgba(80, 45, 20, 0.18), inset 0 0 0 2px rgba(255,255,255,0.14)",
+                    gap: "28px",
+                    flexWrap: "wrap",
                   }}
                 >
-                  Bùi
+                  <div
+                    style={{
+                      fontSize: "clamp(42px, 6vw, 74px)",
+                      lineHeight: 1,
+                      fontWeight: 700,
+                      color: "#5a3017",
+                      letterSpacing: "2px",
+                      whiteSpace: "nowrap",
+                      textShadow: "0 1px 0 rgba(255,255,255,0.25)",
+                      marginTop: "54px",
+                    }}
+                  >
+                    Gia Phả
+                  </div>
+
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "116px",
+                      height: "150px",
+                      flexShrink: 0,
+                      display: "flex",
+                      alignItems: "flex-start",
+                      justifyContent: "center",
+                      marginTop: "-10px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "100px",
+                        height: "112px",
+                        clipPath:
+                          "polygon(50% 0%, 88% 14%, 88% 68%, 50% 100%, 12% 68%, 12% 14%)",
+                        background:
+                          "radial-gradient(circle at 30% 25%, #b98553 0%, #8b5a36 58%, #6a3d23 100%)",
+                        border: "3px solid #c79a6a",
+                        boxShadow:
+                          "0 10px 20px rgba(70,40,15,0.18), inset 0 0 0 2px rgba(255,255,255,0.15)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#fff6e8",
+                        fontSize: "34px",
+                        fontWeight: 700,
+                        textShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                      }}
+                    >
+                      Bùi
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      fontSize: "clamp(42px, 6vw, 74px)",
+                      lineHeight: 1,
+                      fontWeight: 700,
+                      color: "#5a3017",
+                      letterSpacing: "2px",
+                      whiteSpace: "nowrap",
+                      textShadow: "0 1px 0 rgba(255,255,255,0.25)",
+                      marginTop: "54px",
+                    }}
+                  >
+                    Họ Bùi
+                  </div>
                 </div>
 
                 <div
                   style={{
+                    marginTop: "14px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     gap: "12px",
-                    margin: "12px 0 4px",
-                    color: "#8a5b35",
+                    color: "#9a7448",
                   }}
                 >
-                  <span style={{ fontSize: "18px" }}>❦</span>
                   <div
                     style={{
-                      width: "90px",
+                      width: "280px",
+                      maxWidth: "20vw",
                       height: "1px",
                       background: "#b88b5c",
                     }}
                   />
+                  <span style={{ fontSize: "18px" }}>❦</span>
                   <span style={{ fontSize: "16px" }}>✦</span>
+                  <span style={{ fontSize: "18px" }}>❧</span>
+                  <span style={{ fontSize: "16px" }}>✦</span>
+                  <span style={{ fontSize: "18px" }}>❦</span>
                   <div
                     style={{
-                      width: "90px",
+                      width: "280px",
+                      maxWidth: "20vw",
                       height: "1px",
                       background: "#b88b5c",
                     }}
                   />
-                  <span style={{ fontSize: "18px" }}>❦</span>
                 </div>
-
-                <h1
-                  style={{
-                    margin: "10px 0 0",
-                    fontSize: "64px",
-                    lineHeight: 1.1,
-                    fontWeight: 700,
-                    letterSpacing: "1px",
-                    color: "#5a3017",
-                  }}
-                >
-                  Gia Phả Họ Bùi
-                </h1>
 
                 <div
                   style={{
-                    marginTop: "12px",
+                    marginTop: "18px",
                     color: "#8a5a33",
-                    fontSize: "16px",
+                    fontSize: "15px",
                     letterSpacing: "3px",
                   }}
                 >
                   GÌN GIỮ GIA PHONG • LƯU TRUYỀN HẬU THẾ
                 </div>
-
-                <nav
-                  style={{
-                    marginTop: "24px",
-                    paddingTop: "16px",
-                    borderTop: "1px solid rgba(157,108,65,0.35)",
-                    fontSize: "20px",
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: "26px",
-                    flexWrap: "wrap",
-                    color: "#6a4124",
-                  }}
-                >
-                  <span>Trang chủ</span>
-                  <span>•</span>
-                  <span style={{ fontWeight: 700 }}>Cây gia phả</span>
-                  <span>•</span>
-                  <span>Các câu chuyện</span>
-                  <span>•</span>
-                  <span>Tin tức</span>
-                </nav>
               </header>
 
-              {/* Nội dung từng trang */}
               <div
                 style={{
                   padding: "20px",
