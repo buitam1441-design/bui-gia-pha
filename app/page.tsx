@@ -70,6 +70,54 @@ function findPersonById(person: TreeNode, id: string): TreeNode | null {
   return null;
 }
 
+function OrnamentLine() {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "12px",
+        margin: "12px 0 16px",
+        color: "#8a5b35",
+      }}
+    >
+      <span style={{ fontSize: "18px" }}>❦</span>
+      <div
+        style={{
+          width: "70px",
+          height: "1px",
+          background: "#b88b5c",
+        }}
+      />
+      <span style={{ fontSize: "16px" }}>✦</span>
+      <div
+        style={{
+          width: "70px",
+          height: "1px",
+          background: "#b88b5c",
+        }}
+      />
+      <span style={{ fontSize: "18px" }}>❦</span>
+    </div>
+  );
+}
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h3
+      style={{
+        fontSize: "28px",
+        marginTop: 0,
+        marginBottom: "12px",
+        color: "#5f351c",
+      }}
+    >
+      {children}
+    </h3>
+  );
+}
+
 export default function Home() {
   const [treeData, setTreeData] = useState<TreeNode | null>(null);
   const [selectedPerson, setSelectedPerson] = useState<PersonType>(familyTree);
@@ -86,7 +134,7 @@ export default function Home() {
       const { width } = treeWrapperRef.current.getBoundingClientRect();
       setTranslate({
         x: width / 2,
-        y: 100,
+        y: 110,
       });
     }
   }, [treeData]);
@@ -111,315 +159,328 @@ export default function Home() {
   if (!treeData) return null;
 
   return (
-    <main
+    <section
       style={{
-        background: "#e8d8b5",
-        minHeight: "100vh",
-        padding: "18px",
-        color: "#5b341c",
-        fontFamily: "Georgia, serif",
+        display: "grid",
+        gridTemplateColumns: "300px 1fr 420px",
+        gap: "18px",
       }}
     >
-      <div
+      <aside
         style={{
-          border: "2px solid #8b5a2b",
-          borderRadius: "22px",
-          overflow: "hidden",
-          background: "#e3d3ae",
+          border: "1px solid #c29667",
+          borderRadius: "18px",
+          padding: "20px",
+          background: "linear-gradient(180deg, #f5ead3 0%, #efe0c0 100%)",
+          boxShadow:
+            "inset 0 0 0 1px rgba(255,255,255,0.26), 0 8px 20px rgba(93, 58, 28, 0.06)",
         }}
       >
-        <header
+        <div
           style={{
-            textAlign: "center",
-            padding: "28px 20px 20px",
-            borderBottom: "1px solid #b88c5a",
+            border: "1px solid rgba(157,108,65,0.35)",
+            borderRadius: "14px",
+            padding: "16px",
           }}
         >
-          <h1
+          <h2
             style={{
-              margin: 0,
-              fontSize: "72px",
-              lineHeight: 1.1,
+              fontSize: "34px",
+              marginTop: 0,
+              marginBottom: "8px",
+              textAlign: "center",
+            }}
+          >
+            Giới Thiệu
+          </h2>
+
+          <OrnamentLine />
+
+          <p
+            style={{
+              fontSize: "18px",
+              lineHeight: 1.9,
+              marginBottom: "22px",
+              textAlign: "justify",
+            }}
+          >
+            Đây là nơi lưu giữ gia phả, ký ức, ảnh cũ và các câu chuyện của dòng
+            họ Bùi để con cháu đời sau luôn nhớ về cội nguồn và tiếp tục viết
+            tiếp hành trình của gia đình.
+          </p>
+
+          <SectionTitle>Nhân vật nổi bật</SectionTitle>
+
+          {[
+            { id: "bui-van-le", name: "Bùi Văn Lệ", years: "1870–1930" },
+            { id: "bui-van-nho", name: "Bùi Văn Nho", years: "1899–1950" },
+            { id: "bui-van-toan", name: "Bùi Văn Toàn", years: "1997–nay" },
+          ].map((item) => (
+            <div
+              key={item.id}
+              onClick={() => handleSelectOnly(item.id)}
+              style={{
+                border: "1px solid #c9a574",
+                borderRadius: "14px",
+                padding: "14px 16px",
+                background: "linear-gradient(180deg, #fbf3e3 0%, #f2e4c6 100%)",
+                cursor: "pointer",
+                marginBottom: "12px",
+                boxShadow: "0 4px 10px rgba(80,50,20,0.05)",
+              }}
+            >
+              <div style={{ fontSize: "24px", fontWeight: 700 }}>
+                {item.name}
+              </div>
+              <div style={{ fontSize: "16px", marginTop: "4px" }}>
+                {item.years}
+              </div>
+            </div>
+          ))}
+        </div>
+      </aside>
+
+      <div
+        style={{
+          border: "1px solid #c29667",
+          borderRadius: "18px",
+          background: "linear-gradient(180deg, #f3e7cc 0%, #ead9b7 100%)",
+          padding: "14px",
+          minHeight: "920px",
+          boxShadow:
+            "inset 0 0 0 1px rgba(255,255,255,0.26), 0 8px 20px rgba(93, 58, 28, 0.06)",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "12px",
+            gap: "12px",
+            flexWrap: "wrap",
+            padding: "4px 4px 8px",
+          }}
+        >
+          <button
+            onClick={() => {
+              const resetTree = setCollapseByLevel(cloneTree(familyTree), 0, 1);
+              setTreeData(resetTree);
+              setSelectedPerson(familyTree);
+            }}
+            style={{
+              padding: "10px 18px",
+              borderRadius: "999px",
+              border: "1px solid #9f6e43",
+              background: "linear-gradient(180deg, #fffaf0 0%, #f1dfbf 100%)",
+              color: "#5b341c",
+              cursor: "pointer",
+              fontSize: "15px",
               fontWeight: 700,
+              boxShadow: "0 4px 8px rgba(80,50,20,0.06)",
             }}
           >
-            Gia Phả Họ Bùi
-          </h1>
-
-          <nav
-            style={{
-              marginTop: "24px",
-              fontSize: "30px",
-              display: "flex",
-              justifyContent: "center",
-              gap: "40px",
-              flexWrap: "wrap",
-            }}
-          >
-            <span>Trang chủ</span>
-            <span style={{ fontWeight: 700 }}>Cây gia phả</span>
-            <span>Các câu chuyện</span>
-            <span>Tin tức</span>
-          </nav>
-        </header>
-
-        <section
-          style={{
-            display: "grid",
-            gridTemplateColumns: "320px 1fr 420px",
-            gap: "18px",
-            padding: "20px",
-          }}
-        >
-          <aside
-            style={{
-              border: "1px solid #c49a6c",
-              borderRadius: "18px",
-              padding: "22px",
-              background: "#efe4ca",
-            }}
-          >
-            <h2 style={{ fontSize: "42px", marginTop: 0, marginBottom: "10px" }}>
-              Giới thiệu
-            </h2>
-
-            <div
-              style={{
-                height: "1px",
-                background: "#c9a574",
-                marginBottom: "18px",
-              }}
-            />
-
-            <p
-              style={{
-                fontSize: "24px",
-                lineHeight: 1.8,
-                marginBottom: "28px",
-              }}
-            >
-              Đây là nơi lưu giữ gia phả, ký ức, ảnh cũ và các câu chuyện của dòng
-              họ Bùi để con cháu sau này còn tiếp tục viết tiếp.
-            </p>
-
-            <h3 style={{ fontSize: "34px", marginBottom: "16px" }}>
-              Nhân vật nổi bật
-            </h3>
-
-            <div
-              onClick={() => handleSelectOnly("bui-van-le")}
-              style={{
-                border: "1px solid #c9a574",
-                borderRadius: "14px",
-                padding: "16px",
-                background: "#f3ead7",
-                cursor: "pointer",
-                marginBottom: "14px",
-              }}
-            >
-              <div style={{ fontSize: "30px", fontWeight: 700 }}>Bùi Văn Lệ</div>
-              <div style={{ fontSize: "20px", marginTop: "6px" }}>1870–1930</div>
-            </div>
-
-            <div
-              onClick={() => handleSelectOnly("bui-van-nho")}
-              style={{
-                border: "1px solid #c9a574",
-                borderRadius: "14px",
-                padding: "16px",
-                background: "#f3ead7",
-                cursor: "pointer",
-                marginBottom: "14px",
-              }}
-            >
-              <div style={{ fontSize: "30px", fontWeight: 700 }}>Bùi Văn Nho</div>
-              <div style={{ fontSize: "20px", marginTop: "6px" }}>1899–1950</div>
-            </div>
-
-            <div
-              onClick={() => handleSelectOnly("bui-van-toan")}
-              style={{
-                border: "1px solid #c9a574",
-                borderRadius: "14px",
-                padding: "16px",
-                background: "#f3ead7",
-                cursor: "pointer",
-              }}
-            >
-              <div style={{ fontSize: "30px", fontWeight: 700 }}>Bùi Văn Toàn</div>
-              <div style={{ fontSize: "20px", marginTop: "6px" }}>1997–nay</div>
-            </div>
-          </aside>
+            Về cây gốc
+          </button>
 
           <div
             style={{
-              border: "1px solid #c49a6c",
-              borderRadius: "18px",
-              background: "#efe3c7",
-              padding: "14px",
-              minHeight: "900px",
+              fontSize: "16px",
+              fontWeight: 600,
+              color: "#7a5230",
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "10px",
-                gap: "12px",
-                flexWrap: "wrap",
-              }}
-            >
-              <button
-                onClick={() => {
-                  const resetTree = setCollapseByLevel(cloneTree(familyTree), 0, 1);
-                  setTreeData(resetTree);
-                  setSelectedPerson(familyTree);
-                }}
-                style={{
-                  padding: "10px 18px",
-                  borderRadius: "999px",
-                  border: "1px solid #a36f45",
-                  background: "#f8f1e4",
-                  color: "#5b341c",
-                  cursor: "pointer",
-                  fontSize: "16px",
-                  fontWeight: 700,
-                }}
-              >
-                Cây gia phả
-              </button>
+            Nhấn vào từng người để xem thông tin và mở rộng nhánh
+          </div>
+        </div>
 
-              <div
-                style={{
-                  fontSize: "18px",
-                  fontWeight: 600,
-                  color: "#7a5230",
-                }}
-              >
-                Nhấn vào từng người để xem thông tin và mở rộng nhánh
-              </div>
-            </div>
+        <div
+          ref={treeWrapperRef}
+          style={{
+            width: "100%",
+            height: "840px",
+            borderRadius: "16px",
+            background:
+              "linear-gradient(180deg, rgba(255,251,241,0.35) 0%, rgba(233,219,189,0.55) 100%)",
+            overflow: "hidden",
+            boxShadow: "inset 0 0 0 1px rgba(163,111,69,0.18)",
+            position: "relative",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              pointerEvents: "none",
+              background:
+                "radial-gradient(circle at center, rgba(255,255,255,0.12) 0%, rgba(0,0,0,0) 65%)",
+            }}
+          />
 
-            <div
-              ref={treeWrapperRef}
-              style={{
-                width: "100%",
-                height: "820px",
-                borderRadius: "16px",
-                background: "#eadfc3",
-                overflow: "hidden",
-                boxShadow: "inset 0 0 0 1px rgba(163,111,69,0.15)",
-              }}
-            >
-              <Tree
-                data={treeData}
-                orientation="vertical"
-                pathFunc="step"
-                translate={translate}
-                collapsible={false}
-                zoomable={true}
-                draggable={true}
-                separation={{ siblings: 1.2, nonSiblings: 1.4 }}
-                nodeSize={{ x: 240, y: 120 }}
-                renderCustomNodeElement={({ nodeDatum }) => {
-                  const person = nodeDatum as unknown as PersonType;
+          <Tree
+            data={treeData}
+            orientation="vertical"
+            pathFunc="step"
+            translate={translate}
+            collapsible={false}
+            zoomable={true}
+            draggable={true}
+            separation={{ siblings: 1.2, nonSiblings: 1.45 }}
+            nodeSize={{ x: 240, y: 120 }}
+            renderCustomNodeElement={({ nodeDatum }) => {
+              const person = nodeDatum as unknown as PersonType;
+              const isSelected = selectedPerson.id === person.id;
 
-                  return (
-                    <g onClick={() => handleClick(person)} style={{ cursor: "pointer" }}>
-                      <rect
-                        width="210"
-                        height="62"
-                        x="-105"
-                        y="-31"
-                        rx="12"
-                        ry="12"
-                        fill={person.color || "#fffaf5"}
-                        stroke="#a36f45"
-                        strokeWidth="1.6"
-                      />
-                      <text
-                        x="0"
-                        y="-4"
-                        textAnchor="middle"
-                        style={{
-                          fontSize: "14px",
-                          fontWeight: 700,
-                          fill: "#4e2f1d",
-                          pointerEvents: "none",
-                        }}
-                      >
-                        {person.name}
-                      </text>
-                      <text
-                        x="0"
-                        y="17"
-                        textAnchor="middle"
-                        style={{
-                          fontSize: "11px",
-                          fill: "#4e2f1d",
-                          pointerEvents: "none",
-                        }}
-                      >
-                        {person.years || ""}
-                      </text>
-                    </g>
-                  );
-                }}
-              />
-            </div>
+              return (
+                <g
+                  onClick={() => handleClick(person)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <rect
+                    width="214"
+                    height="66"
+                    x="-107"
+                    y="-33"
+                    rx="14"
+                    ry="14"
+                    fill={isSelected ? "#f8eed8" : person.color || "#fff8eb"}
+                    stroke={isSelected ? "#7d4a27" : "#a36f45"}
+                    strokeWidth={isSelected ? "2.2" : "1.5"}
+                  />
+                  <rect
+                    width="196"
+                    height="48"
+                    x="-98"
+                    y="-24"
+                    rx="10"
+                    ry="10"
+                    fill="none"
+                    stroke="rgba(163,111,69,0.28)"
+                    strokeWidth="1"
+                  />
+                  <text
+                    x="0"
+                    y="-6"
+                    textAnchor="middle"
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 700,
+                      fill: "#4e2f1d",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    {person.name}
+                  </text>
+                  <text
+                    x="0"
+                    y="15"
+                    textAnchor="middle"
+                    style={{
+                      fontSize: "11px",
+                      fill: "#6b4529",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    {person.years || ""}
+                  </text>
+                </g>
+              );
+            }}
+          />
+        </div>
+      </div>
+
+      <aside
+        style={{
+          border: "1px solid #c29667",
+          borderRadius: "18px",
+          padding: "20px",
+          background: "linear-gradient(180deg, #f8efdc 0%, #f1e0bf 100%)",
+          minHeight: "920px",
+          boxShadow:
+            "inset 0 0 0 1px rgba(255,255,255,0.26), 0 8px 20px rgba(93, 58, 28, 0.06)",
+        }}
+      >
+        <div
+          style={{
+            border: "1px solid rgba(157,108,65,0.35)",
+            borderRadius: "14px",
+            padding: "18px",
+            minHeight: "100%",
+          }}
+        >
+          <div
+            style={{
+              textAlign: "center",
+              marginBottom: "14px",
+              color: "#8a5b35",
+              fontSize: "18px",
+            }}
+          >
+            ✦ Gia phả chi tiết ✦
           </div>
 
-          <aside
+          <h2
             style={{
-              border: "1px solid #c49a6c",
-              borderRadius: "18px",
-              padding: "26px",
-              background: "#f6eddc",
-              minHeight: "900px",
+              fontSize: "46px",
+              marginTop: 0,
+              marginBottom: "8px",
+              textAlign: "center",
+              lineHeight: 1.1,
+              color: "#5a3017",
             }}
           >
-            <h2
-              style={{
-                fontSize: "64px",
-                marginTop: 0,
-                marginBottom: "12px",
-                textAlign: "center",
-                lineHeight: 1.05,
-              }}
-            >
-              {selectedPerson.name}
-            </h2>
+            {selectedPerson.name}
+          </h2>
 
-            <p
-              style={{
-                fontSize: "28px",
-                textAlign: "center",
-                marginBottom: "34px",
-              }}
-            >
-              {selectedPerson.years || "Chưa cập nhật"}
-            </p>
+          <p
+            style={{
+              fontSize: "22px",
+              textAlign: "center",
+              marginBottom: "22px",
+              color: "#764a2a",
+            }}
+          >
+            {selectedPerson.years || "Chưa cập nhật"}
+          </p>
 
-            <h3 style={{ fontSize: "34px", marginBottom: "8px" }}>Quê quán</h3>
-            <p style={{ fontSize: "22px", lineHeight: 1.7, marginBottom: "24px" }}>
-              {selectedPerson.location || "Chưa cập nhật"}
-            </p>
+          <OrnamentLine />
 
-            <h3 style={{ fontSize: "34px", marginBottom: "8px" }}>Nghề nghiệp</h3>
-            <p style={{ fontSize: "22px", lineHeight: 1.7, marginBottom: "24px" }}>
-              {selectedPerson.title || "Chưa cập nhật"}
-            </p>
+          <SectionTitle>Quê quán</SectionTitle>
+          <p
+            style={{
+              fontSize: "18px",
+              lineHeight: 1.8,
+              marginBottom: "18px",
+            }}
+          >
+            {selectedPerson.location || "Chưa cập nhật"}
+          </p>
 
-            <h3 style={{ fontSize: "34px", marginBottom: "8px" }}>
-              Cuộc sống / câu chuyện
-            </h3>
-            <p style={{ fontSize: "22px", lineHeight: 1.8 }}>
-              {selectedPerson.story || "Chưa cập nhật"}
-            </p>
-          </aside>
-        </section>
-      </div>
-    </main>
+          <SectionTitle>Nghề nghiệp</SectionTitle>
+          <p
+            style={{
+              fontSize: "18px",
+              lineHeight: 1.8,
+              marginBottom: "18px",
+            }}
+          >
+            {selectedPerson.title || "Chưa cập nhật"}
+          </p>
+
+          <SectionTitle>Cuộc sống / câu chuyện</SectionTitle>
+          <p
+            style={{
+              fontSize: "18px",
+              lineHeight: 1.95,
+              marginBottom: 0,
+              textAlign: "justify",
+            }}
+          >
+            {selectedPerson.story || "Chưa cập nhật"}
+          </p>
+        </div>
+      </aside>
+    </section>
   );
 }
