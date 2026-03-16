@@ -42,6 +42,8 @@ export default function RootLayout({
                 "0 18px 40px rgba(70, 40, 15, 0.18), inset 0 0 0 1px rgba(255,255,255,0.25)",
             }}
           >
+            {/* góc trang trí */}
+
             <div
               style={{
                 position: "absolute",
@@ -52,10 +54,10 @@ export default function RootLayout({
                 borderTop: "2px solid #a57447",
                 borderLeft: "2px solid #a57447",
                 borderTopLeftRadius: "24px",
-                pointerEvents: "none",
                 opacity: 0.6,
               }}
             />
+
             <div
               style={{
                 position: "absolute",
@@ -66,10 +68,10 @@ export default function RootLayout({
                 borderTop: "2px solid #a57447",
                 borderRight: "2px solid #a57447",
                 borderTopRightRadius: "24px",
-                pointerEvents: "none",
                 opacity: 0.6,
               }}
             />
+
             <div
               style={{
                 position: "absolute",
@@ -80,10 +82,10 @@ export default function RootLayout({
                 borderBottom: "2px solid #a57447",
                 borderLeft: "2px solid #a57447",
                 borderBottomLeftRadius: "24px",
-                pointerEvents: "none",
                 opacity: 0.6,
               }}
             />
+
             <div
               style={{
                 position: "absolute",
@@ -94,7 +96,6 @@ export default function RootLayout({
                 borderBottom: "2px solid #a57447",
                 borderRight: "2px solid #a57447",
                 borderBottomRightRadius: "24px",
-                pointerEvents: "none",
                 opacity: 0.6,
               }}
             />
@@ -106,97 +107,92 @@ export default function RootLayout({
                 overflow: "hidden",
                 background:
                   "linear-gradient(180deg, #efe2c3 0%, #e4d0aa 38%, #eadabd 100%)",
-                boxShadow: "inset 0 0 0 3px rgba(124, 79, 41, 0.12)",
+                boxShadow: "inset 0 0 0 3px rgba(124,79,41,0.12)",
               }}
             >
+              {/* HEADER */}
+
               <header
                 style={{
                   textAlign: "center",
-                  padding: "24px 20px 26px",
+                  padding: "30px 20px 26px",
                   borderBottom: "1px solid #b78b5f",
-                  background:
-                    "linear-gradient(180deg, rgba(255,250,240,0.24) 0%, rgba(210,175,118,0.08) 100%)",
                 }}
               >
                 <div
                   style={{
                     display: "flex",
-                    alignItems: "flex-start",
+                    alignItems: "center",
                     justifyContent: "center",
-                    gap: "28px",
+                    gap: "30px",
                     flexWrap: "wrap",
                   }}
                 >
+                  {/* Gia Phả */}
+
                   <div
                     style={{
-                      fontSize: "clamp(42px, 6vw, 74px)",
-                      lineHeight: 1,
+                      fontSize: "clamp(42px,6vw,74px)",
                       fontWeight: 700,
-                      color: "#5a3017",
                       letterSpacing: "2px",
-                      whiteSpace: "nowrap",
-                      textShadow: "0 1px 0 rgba(255,255,255,0.25)",
-                      marginTop: "54px",
                     }}
                   >
                     Gia Phả
                   </div>
 
+                  {/* LOGO */}
+
                   <div
                     style={{
                       position: "relative",
-                      width: "116px",
+                      width: "150px",
                       height: "150px",
-                      flexShrink: 0,
                       display: "flex",
-                      alignItems: "flex-start",
+                      alignItems: "center",
                       justifyContent: "center",
-                      marginTop: "-10px",
+                      marginTop: "-40px",
                     }}
                   >
                     <div
                       style={{
-                        width: "100px",
-                        height: "112px",
-                        clipPath:
-                          "polygon(50% 0%, 88% 14%, 88% 68%, 50% 100%, 12% 68%, 12% 14%)",
+                        width: "120px",
+                        height: "120px",
+                        borderRadius: "50%",
                         background:
-                          "radial-gradient(circle at 30% 25%, #b98553 0%, #8b5a36 58%, #6a3d23 100%)",
-                        border: "3px solid #c79a6a",
-                        boxShadow:
-                          "0 10px 20px rgba(70,40,15,0.18), inset 0 0 0 2px rgba(255,255,255,0.15)",
+                          "radial-gradient(circle at 30% 30%, #c89461 0%, #9b643c 55%, #6a3d23 100%)",
+                        border: "4px solid #cfa06e",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         color: "#fff6e8",
-                        fontSize: "34px",
+                        fontSize: "36px",
                         fontWeight: 700,
-                        textShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                        boxShadow:
+                          "0 10px 20px rgba(70,40,15,0.18), inset 0 0 0 2px rgba(255,255,255,0.15)",
                       }}
                     >
                       Bùi
                     </div>
                   </div>
 
+                  {/* Họ Bùi */}
+
                   <div
                     style={{
-                      fontSize: "clamp(42px, 6vw, 74px)",
-                      lineHeight: 1,
+                      fontSize: "clamp(42px,6vw,74px)",
                       fontWeight: 700,
-                      color: "#5a3017",
                       letterSpacing: "2px",
-                      whiteSpace: "nowrap",
-                      textShadow: "0 1px 0 rgba(255,255,255,0.25)",
-                      marginTop: "54px",
                     }}
                   >
                     Họ Bùi
                   </div>
                 </div>
 
+                {/* đường trang trí */}
+
                 <div
                   style={{
-                    marginTop: "14px",
+                    marginTop: "16px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -206,30 +202,28 @@ export default function RootLayout({
                 >
                   <div
                     style={{
-                      width: "280px",
-                      maxWidth: "20vw",
+                      width: "260px",
                       height: "1px",
                       background: "#b88b5c",
                     }}
                   />
-                  <span style={{ fontSize: "18px" }}>❦</span>
-                  <span style={{ fontSize: "16px" }}>✦</span>
-                  <span style={{ fontSize: "18px" }}>❧</span>
-                  <span style={{ fontSize: "16px" }}>✦</span>
-                  <span style={{ fontSize: "18px" }}>❦</span>
+
+                  <span>❦ ✦ ❧ ✦ ❦</span>
+
                   <div
                     style={{
-                      width: "280px",
-                      maxWidth: "20vw",
+                      width: "260px",
                       height: "1px",
                       background: "#b88b5c",
                     }}
                   />
                 </div>
 
+                {/* slogan */}
+
                 <div
                   style={{
-                    marginTop: "18px",
+                    marginTop: "16px",
                     color: "#8a5a33",
                     fontSize: "15px",
                     letterSpacing: "3px",
@@ -238,6 +232,8 @@ export default function RootLayout({
                   GÌN GIỮ GIA PHONG • LƯU TRUYỀN HẬU THẾ
                 </div>
               </header>
+
+              {/* CONTENT */}
 
               <div
                 style={{

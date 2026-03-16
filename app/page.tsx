@@ -321,9 +321,9 @@ export default function Home() {
               }}
             >
               {[
-                { id: "bui-van-le", name: "Bùi Văn Lệ", years: "1870–1930" },
-                { id: "bui-van-nho", name: "Bùi Văn Nho", years: "1899–1950" },
-                { id: "bui-van-toan", name: "Bùi Văn Toàn", years: "1997–nay" },
+                { id: "bui-van-le", name: "Bùi Văn Lệ", years: "1870-1930" },
+                { id: "bui-van-nho", name: "Bùi Văn Nho", years: "1899-1950" },
+                { id: "bui-van-toan", name: "Bùi Văn Toàn", years: "1997-nay" },
               ].map((item) => (
                 <div
                   key={item.id}
@@ -383,16 +383,6 @@ export default function Home() {
               position: "relative",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                pointerEvents: "none",
-                background:
-                  "radial-gradient(circle at center, rgba(255,255,255,0.12) 0%, rgba(0,0,0,0) 65%)",
-              }}
-            />
-
             <Tree
               data={treeData}
               orientation="vertical"
@@ -402,10 +392,14 @@ export default function Home() {
               zoomable={true}
               draggable={true}
               separation={{ siblings: 1.35, nonSiblings: 1.55 }}
-              nodeSize={{ x: 260, y: 135 }}
+              nodeSize={{ x: 280, y: 145 }}
               renderCustomNodeElement={({ nodeDatum }) => {
                 const person = nodeDatum as unknown as PersonType;
                 const isSelected = selectedPerson?.id === person.id;
+                const spouseText =
+                  person.spouses && person.spouses.length > 0
+                    ? person.spouses.map((s) => s.name).join(" • ")
+                    : "";
 
                 return (
                   <g
@@ -413,10 +407,10 @@ export default function Home() {
                     style={{ cursor: "pointer" }}
                   >
                     <rect
-                      width="214"
-                      height="66"
-                      x="-107"
-                      y="-33"
+                      width="230"
+                      height="92"
+                      x="-115"
+                      y="-46"
                       rx="14"
                       ry="14"
                       fill={isSelected ? "#f8eed8" : person.color || "#fff8eb"}
@@ -424,10 +418,10 @@ export default function Home() {
                       strokeWidth={isSelected ? "2.2" : "1.5"}
                     />
                     <rect
-                      width="196"
-                      height="48"
-                      x="-98"
-                      y="-24"
+                      width="212"
+                      height="72"
+                      x="-106"
+                      y="-36"
                       rx="10"
                       ry="10"
                       fill="none"
@@ -436,7 +430,7 @@ export default function Home() {
                     />
                     <text
                       x="0"
-                      y="-6"
+                      y="-18"
                       textAnchor="middle"
                       style={{
                         fontSize: "14px",
@@ -449,7 +443,7 @@ export default function Home() {
                     </text>
                     <text
                       x="0"
-                      y="15"
+                      y="2"
                       textAnchor="middle"
                       style={{
                         fontSize: "11px",
@@ -459,6 +453,22 @@ export default function Home() {
                     >
                       {person.years || ""}
                     </text>
+
+                    {spouseText && (
+                      <text
+                        x="0"
+                        y="23"
+                        textAnchor="middle"
+                        style={{
+                          fontSize: "10px",
+                          fill: "#8a5b35",
+                          fontStyle: "italic",
+                          pointerEvents: "none",
+                        }}
+                      >
+                        {spouseText}
+                      </text>
+                    )}
                   </g>
                 );
               }}
@@ -568,6 +578,80 @@ export default function Home() {
             >
               {selectedPerson.title || "Chưa cập nhật"}
             </p>
+
+            <SectionTitle>Phối ngẫu</SectionTitle>
+            {selectedPerson.spouses && selectedPerson.spouses.length > 0 ? (
+              <div style={{ marginBottom: "18px" }}>
+                {selectedPerson.spouses.map((spouse, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      border: "1px solid rgba(157,108,65,0.28)",
+                      borderRadius: "12px",
+                      padding: "12px 14px",
+                      marginBottom: "10px",
+                      background: "rgba(255,255,255,0.28)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: 700,
+                        color: "#5a3017",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      {spouse.title ? `${spouse.title}: ${spouse.name}` : spouse.name}
+                    </div>
+
+                    {spouse.years && (
+                      <div
+                        style={{
+                          fontSize: "16px",
+                          color: "#764a2a",
+                          marginBottom: "6px",
+                        }}
+                      >
+                        {spouse.years}
+                      </div>
+                    )}
+
+                    {spouse.location && (
+                      <div
+                        style={{
+                          fontSize: "16px",
+                          lineHeight: 1.7,
+                          marginBottom: spouse.story ? "6px" : 0,
+                        }}
+                      >
+                        Quê quán: {spouse.location}
+                      </div>
+                    )}
+
+                    {spouse.story && (
+                      <div
+                        style={{
+                          fontSize: "16px",
+                          lineHeight: 1.7,
+                        }}
+                      >
+                        {spouse.story}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p
+                style={{
+                  fontSize: "18px",
+                  lineHeight: 1.8,
+                  marginBottom: "18px",
+                }}
+              >
+                Chưa cập nhật
+              </p>
+            )}
 
             <SectionTitle>Cuộc sống / câu chuyện</SectionTitle>
             <p
