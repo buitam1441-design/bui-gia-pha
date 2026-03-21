@@ -18,7 +18,10 @@ export default function RootLayout({
           margin: 0,
           background:
             "radial-gradient(circle at top, #efe0bc 0%, #e2cda3 45%, #d8bf92 100%)",
-          fontFamily: "Georgia, 'Times New Roman', serif",
+
+          /* FONT MỚI - DỄ ĐỌC HƠN */
+          fontFamily: "Inter, Segoe UI, Arial, sans-serif",
+
           color: "#5a341b",
         }}
       >
@@ -42,7 +45,7 @@ export default function RootLayout({
                 "0 18px 40px rgba(70, 40, 15, 0.18), inset 0 0 0 1px rgba(255,255,255,0.25)",
             }}
           >
-            {/* góc trang trí */}
+            {/* Góc trang trí */}
 
             <div
               style={{

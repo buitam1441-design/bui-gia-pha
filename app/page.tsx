@@ -5,11 +5,25 @@ import Tree from "react-d3-tree";
 import { familyTree, PersonType } from "./familyData";
 
 type TreeNode = PersonType & {
+  level?: number;
   __rd3t?: {
     collapsed?: boolean;
   };
   children?: TreeNode[];
 };
+
+function getColorByLevel(level: number) {
+  const colors = [
+    "#c05621",
+    "#dd6b20",
+    "#d69e2e",
+    "#38a169",
+    "#3182ce",
+    "#805ad5",
+  ];
+
+  return colors[level] || "#4a5568";
+}
 
 function cloneTree(person: PersonType): TreeNode {
   return {
@@ -27,6 +41,8 @@ function setCollapseByLevel(
 
   return {
     ...node,
+    level: currentLevel,
+    color: getColorByLevel(currentLevel),
     __rd3t: {
       ...node.__rd3t,
       collapsed: shouldCollapse,
@@ -118,12 +134,65 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
+function GenerationLegend() {
+  const items = [
+    { label: "Đời 1", color: getColorByLevel(0) },
+    { label: "Đời 2", color: getColorByLevel(1) },
+    { label: "Đời 3", color: getColorByLevel(2) },
+    { label: "Đời 4", color: getColorByLevel(3) },
+    { label: "Đời 5", color: getColorByLevel(4) },
+    { label: "Đời 6+", color: getColorByLevel(5) },
+  ];
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "10px",
+        flexWrap: "wrap",
+        marginTop: "10px",
+      }}
+    >
+      {items.map((item) => (
+        <div
+          key={item.label}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "10px 16px",
+            borderRadius: "999px",
+            border: "1px solid #8b5e34",
+            background: "rgba(255,255,255,0.82)",
+            fontSize: "16px",
+            color: "#4a2f1b",
+            fontWeight: 700,
+          }}
+        >
+          <span
+            style={{
+              width: "16px",
+              height: "16px",
+              borderRadius: "50%",
+              background: item.color,
+              border: "1px solid #5c3b21",
+              display: "inline-block",
+            }}
+          />
+          {item.label}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function Home() {
   const [treeData, setTreeData] = useState<TreeNode | null>(null);
   const [selectedPerson, setSelectedPerson] = useState<PersonType | null>(null);
   const [activeTab, setActiveTab] = useState<"home" | "tree">("tree");
   const treeWrapperRef = useRef<HTMLDivElement>(null);
-  const [translate, setTranslate] = useState({ x: 500, y: 100 });
+  const [translate, setTranslate] = useState({ x: 500, y: 120 });
 
   useEffect(() => {
     const initialTree = setCollapseByLevel(cloneTree(familyTree), 0, 1);
@@ -135,7 +204,7 @@ export default function Home() {
       const { width } = treeWrapperRef.current.getBoundingClientRect();
       setTranslate({
         x: width / 2,
-        y: 110,
+        y: 150,
       });
     }
   }, [treeData, selectedPerson]);
@@ -191,11 +260,11 @@ export default function Home() {
             marginBottom: "14px",
           }}
         >
-          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
             <button
               onClick={() => setActiveTab("home")}
               style={{
-                padding: "10px 18px",
+                padding: "14px 22px",
                 borderRadius: "999px",
                 border: "1px solid #9f6e43",
                 background:
@@ -204,7 +273,7 @@ export default function Home() {
                     : "linear-gradient(180deg, #fffaf0 0%, #f1dfbf 100%)",
                 color: "#5b341c",
                 cursor: "pointer",
-                fontSize: "15px",
+                fontSize: "18px",
                 fontWeight: 700,
                 boxShadow: "0 4px 8px rgba(80,50,20,0.06)",
               }}
@@ -215,7 +284,7 @@ export default function Home() {
             <button
               onClick={() => setActiveTab("tree")}
               style={{
-                padding: "10px 18px",
+                padding: "14px 22px",
                 borderRadius: "999px",
                 border: "1px solid #9f6e43",
                 background:
@@ -224,7 +293,7 @@ export default function Home() {
                     : "linear-gradient(180deg, #fffaf0 0%, #f1dfbf 100%)",
                 color: "#5b341c",
                 cursor: "pointer",
-                fontSize: "15px",
+                fontSize: "18px",
                 fontWeight: 700,
                 boxShadow: "0 4px 8px rgba(80,50,20,0.06)",
               }}
@@ -244,14 +313,14 @@ export default function Home() {
                   setSelectedPerson(null);
                 }}
                 style={{
-                  padding: "10px 18px",
+                  padding: "14px 22px",
                   borderRadius: "999px",
                   border: "1px solid #9f6e43",
                   background:
                     "linear-gradient(180deg, #fffaf0 0%, #f1dfbf 100%)",
                   color: "#5b341c",
                   cursor: "pointer",
-                  fontSize: "15px",
+                  fontSize: "18px",
                   fontWeight: 700,
                   boxShadow: "0 4px 8px rgba(80,50,20,0.06)",
                 }}
@@ -264,9 +333,9 @@ export default function Home() {
           {activeTab === "tree" && (
             <div
               style={{
-                fontSize: "16px",
-                fontWeight: 600,
-                color: "#7a5230",
+                fontSize: "18px",
+                fontWeight: 700,
+                color: "#6b3f1f",
               }}
             >
               Nhấn vào từng người để xem thông tin và mở rộng nhánh
@@ -304,13 +373,17 @@ export default function Home() {
                 lineHeight: 1.95,
                 textAlign: "justify",
                 maxWidth: "1000px",
-                margin: "0 auto 30px",
+                margin: "0 auto 24px",
               }}
             >
               Đây là nơi lưu giữ gia phả, ký ức, ảnh cũ và các câu chuyện của dòng
               họ Bùi để con cháu đời sau luôn nhớ về cội nguồn và tiếp tục viết
               tiếp hành trình của gia đình.
             </p>
+
+            <div style={{ maxWidth: "1000px", margin: "0 auto 10px" }}>
+              <GenerationLegend />
+            </div>
 
             <div
               style={{
@@ -374,7 +447,7 @@ export default function Home() {
             ref={treeWrapperRef}
             style={{
               width: "100%",
-              height: "840px",
+              height: "900px",
               borderRadius: "16px",
               background:
                 "linear-gradient(180deg, rgba(255,251,241,0.35) 0%, rgba(233,219,189,0.55) 100%)",
@@ -383,6 +456,32 @@ export default function Home() {
               position: "relative",
             }}
           >
+            <div
+              style={{
+                position: "absolute",
+                top: "12px",
+                left: "12px",
+                zIndex: 10,
+                background: "rgba(255,248,235,0.94)",
+                border: "1px solid #d0ab7e",
+                borderRadius: "14px",
+                padding: "14px 16px",
+                boxShadow: "0 6px 14px rgba(80,50,20,0.08)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "18px",
+                  fontWeight: 700,
+                  color: "#6a4225",
+                  marginBottom: "8px",
+                }}
+              >
+                Màu theo từng đời
+              </div>
+              <GenerationLegend />
+            </div>
+
             <Tree
               data={treeData}
               orientation="vertical"
@@ -391,11 +490,12 @@ export default function Home() {
               collapsible={false}
               zoomable={true}
               draggable={true}
-              separation={{ siblings: 1.35, nonSiblings: 1.55 }}
-              nodeSize={{ x: 280, y: 145 }}
+              separation={{ siblings: 1.6, nonSiblings: 1.8 }}
+              nodeSize={{ x: 380, y: 250 }}
               renderCustomNodeElement={({ nodeDatum }) => {
-                const person = nodeDatum as unknown as PersonType;
+                const person = nodeDatum as unknown as TreeNode;
                 const isSelected = selectedPerson?.id === person.id;
+
                 const spouseText =
                   person.spouses && person.spouses.length > 0
                     ? person.spouses.map((s) => s.name).join(" • ")
@@ -407,63 +507,98 @@ export default function Home() {
                     style={{ cursor: "pointer" }}
                   >
                     <rect
-                      width="230"
-                      height="92"
-                      x="-115"
-                      y="-46"
-                      rx="14"
-                      ry="14"
-                      fill={isSelected ? "#f8eed8" : person.color || "#fff8eb"}
-                      stroke={isSelected ? "#7d4a27" : "#a36f45"}
-                      strokeWidth={isSelected ? "2.2" : "1.5"}
+                      width="330"
+                      height="180"
+                      x="-165"
+                      y="-90"
+                      rx="26"
+                      ry="26"
+                      fill={isSelected ? "#fff4cc" : person.color || "#f7fafc"}
+                      stroke={isSelected ? "#1a202c" : "#2d3748"}
+                      strokeWidth={isSelected ? "4" : "3"}
+                      style={{
+                        filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.22))",
+                      }}
                     />
+
                     <rect
-                      width="212"
-                      height="72"
-                      x="-106"
-                      y="-36"
-                      rx="10"
-                      ry="10"
+                      width="290"
+                      height="140"
+                      x="-145"
+                      y="-70"
+                      rx="20"
+                      ry="20"
                       fill="none"
-                      stroke="rgba(163,111,69,0.28)"
-                      strokeWidth="1"
+                      stroke="rgba(255,255,255,0.50)"
+                      strokeWidth="2"
                     />
+
                     <text
                       x="0"
-                      y="-18"
+                      y="-32"
                       textAnchor="middle"
                       style={{
-                        fontSize: "14px",
-                        fontWeight: 700,
-                        fill: "#4e2f1d",
+                        fontSize: "21px",
+                        fontWeight: 800,
+                        fill: "#ffffff",
                         pointerEvents: "none",
+                        paintOrder: "stroke",
+                        stroke: "rgba(0,0,0,0.55)",
+                        strokeWidth: "1.8px",
                       }}
                     >
                       {person.name}
                     </text>
+
                     <text
                       x="0"
-                      y="2"
+                      y="0"
                       textAnchor="middle"
                       style={{
-                        fontSize: "11px",
-                        fill: "#6b4529",
+                        fontSize: "18px",
+                        fill: "#f7fafc",
                         pointerEvents: "none",
+                        fontWeight: 700,
+                        paintOrder: "stroke",
+                        stroke: "rgba(0,0,0,0.35)",
+                        strokeWidth: "1px",
                       }}
                     >
                       {person.years || ""}
                     </text>
 
+                    {typeof person.level === "number" && (
+                      <text
+                        x="0"
+                        y="32"
+                        textAnchor="middle"
+                        style={{
+                          fontSize: "16px",
+                          fill: "#fffaf0",
+                          pointerEvents: "none",
+                          fontWeight: 700,
+                          paintOrder: "stroke",
+                          stroke: "rgba(0,0,0,0.28)",
+                          strokeWidth: "0.8px",
+                        }}
+                      >
+                        Đời {person.level + 1}
+                      </text>
+                    )}
+
                     {spouseText && (
                       <text
                         x="0"
-                        y="23"
+                        y="60"
                         textAnchor="middle"
                         style={{
-                          fontSize: "10px",
-                          fill: "#8a5b35",
+                          fontSize: "14px",
+                          fill: "#fef3c7",
                           fontStyle: "italic",
                           pointerEvents: "none",
+                          paintOrder: "stroke",
+                          stroke: "rgba(0,0,0,0.25)",
+                          strokeWidth: "0.8px",
                         }}
                       >
                         {spouseText}
@@ -548,11 +683,26 @@ export default function Home() {
               style={{
                 fontSize: "22px",
                 textAlign: "center",
-                marginBottom: "22px",
+                marginBottom: "10px",
                 color: "#764a2a",
               }}
             >
               {selectedPerson.years || "Chưa cập nhật"}
+            </p>
+
+            <p
+              style={{
+                fontSize: "15px",
+                textAlign: "center",
+                marginTop: 0,
+                marginBottom: "22px",
+                color: "#8a5b35",
+                fontWeight: 700,
+              }}
+            >
+              {typeof (selectedPerson as TreeNode).level === "number"
+                ? `Thuộc đời ${(selectedPerson as TreeNode).level! + 1}`
+                : "Chưa xác định đời"}
             </p>
 
             <OrnamentLine />
@@ -590,7 +740,7 @@ export default function Home() {
                       borderRadius: "12px",
                       padding: "12px 14px",
                       marginBottom: "10px",
-                      background: "rgba(255,255,255,0.28)",
+                      background: "rgba(255,255,255,0.35)",
                     }}
                   >
                     <div
@@ -601,7 +751,9 @@ export default function Home() {
                         marginBottom: "4px",
                       }}
                     >
-                      {spouse.title ? `${spouse.title}: ${spouse.name}` : spouse.name}
+                      {spouse.title
+                        ? `${spouse.title}: ${spouse.name}`
+                        : spouse.name}
                     </div>
 
                     {spouse.years && (
