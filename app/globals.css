@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
+/* ===== Theme ===== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f3e7cc;
+  --foreground: #5a341b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ===== Body ===== */
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ===== Family Tree Lines ===== */
+
+.rd3t-link {
+  fill: none !important;
+}
+
+.rd3t-link path {
+  stroke: #3b220f !important;      /* màu đậm hơn */
+  stroke-width: 6px !important;    /* tăng độ dày */
+  fill: none !important;
+  opacity: 1;
+  stroke-linecap: round;           /* đầu line tròn đẹp hơn */
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.25)); /* tạo chiều sâu */
+  transition:
+    stroke 0.25s ease,
+    stroke-width 0.25s ease,
+    filter 0.25s ease;
+}
+
+/* Hover highlight */
+
+.rd3t-link:hover path {
+  stroke: #ff7a1a !important;
+  stroke-width: 7px !important;
+  filter: drop-shadow(0 0 10px rgba(255,122,26,0.6));
+}
+
+/* Fix SVG overflow */
+
+svg {
+  overflow: visible;
 }

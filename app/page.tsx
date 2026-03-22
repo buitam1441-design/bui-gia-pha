@@ -204,7 +204,7 @@ export default function Home() {
       const { width } = treeWrapperRef.current.getBoundingClientRect();
       setTranslate({
         x: width / 2,
-        y: 150,
+        y: 170,
       });
     }
   }, [treeData, selectedPerson]);
@@ -447,7 +447,7 @@ export default function Home() {
             ref={treeWrapperRef}
             style={{
               width: "100%",
-              height: "900px",
+              height: "980px",
               borderRadius: "16px",
               background:
                 "linear-gradient(180deg, rgba(255,251,241,0.35) 0%, rgba(233,219,189,0.55) 100%)",
@@ -490,8 +490,8 @@ export default function Home() {
               collapsible={false}
               zoomable={true}
               draggable={true}
-              separation={{ siblings: 1.6, nonSiblings: 1.8 }}
-              nodeSize={{ x: 380, y: 250 }}
+              separation={{ siblings: 2.2, nonSiblings: 2.6 }}
+              nodeSize={{ x: 420, y: 320 }}
               renderCustomNodeElement={({ nodeDatum }) => {
                 const person = nodeDatum as unknown as TreeNode;
                 const isSelected = selectedPerson?.id === person.id;
