@@ -456,31 +456,7 @@ export default function Home() {
               position: "relative",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                top: "12px",
-                left: "12px",
-                zIndex: 10,
-                background: "rgba(255,248,235,0.94)",
-                border: "1px solid #d0ab7e",
-                borderRadius: "14px",
-                padding: "14px 16px",
-                boxShadow: "0 6px 14px rgba(80,50,20,0.08)",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "18px",
-                  fontWeight: 700,
-                  color: "#6a4225",
-                  marginBottom: "8px",
-                }}
-              >
-                Màu theo từng đời
-              </div>
-              <GenerationLegend />
-            </div>
+            
 
             <Tree
               data={treeData}
